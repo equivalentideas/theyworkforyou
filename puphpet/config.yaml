@@ -64,6 +64,8 @@ server:
         - liberror-perl
         - libxml-twig-perl
         - libyaml-perl
+        - libfile-slurp-perl
+        - libjson-perl
         - libsearch-xapian-perl
         - python-mysqldb
         - python-lxml
@@ -203,7 +205,7 @@ ruby:
                 - compass
             bundler: '1'
 nodejs:
-    install: '1'
+    install: '0'
     npm_packages:
         - bower
         - grunt
