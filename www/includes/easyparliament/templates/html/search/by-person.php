@@ -1191,11 +1191,11 @@
 
             <div class="search-page__section__secondary search-page-sidebar">
                 <h2>Create an alert</h2>
-                <p class="search-alert-type search-alert-type--email">
+                <p class="sidebar-item-with-icon sidebar-item-with-icon--email">
                     <a href="#">Subscribe to an email alert</a>
                     for <em class="current-search-term">Peacock</em>
                 </p>
-                <p class="search-alert-type search-alert-type--rss">
+                <p class="sidebar-item-with-icon sidebar-item-with-icon--rss">
                     Or <a href="#">get an RSS feed</a>
                     of new matches as they happen
                 </p>
