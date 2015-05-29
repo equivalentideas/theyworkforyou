@@ -40,6 +40,7 @@ class Search {
         $data['searchstring'] = $this->search_string;
         $data['this_url'] = $this->construct_url();
         $data['ungrouped_url'] = $this->construct_url(false);
+        $data = $this->get_form_params($data);
 
         return $data;
     }
@@ -142,6 +143,7 @@ class Search {
             if (strpos($search_main, 'OR') !== false) {
                 $search_main = "($search_main)";
             }
+            $searchstring = "$search_main $searchstring";
         } elseif ($search_main) {
             $searchstring = $search_main;
         }
@@ -167,6 +169,22 @@ class Search {
         return $url;
     }
 
+    private function get_form_params($data) {
+        $data['search_keyword'] = get_http_var('q');
+
+        $is_adv = false;
+        foreach ( array('to', 'from', 'person', 'section', 'column' ) as $var ) {
+            $key = "search_$var";
+            $data[$key] = get_http_var( $var );
+            if ( $data[$key] ) {
+                $is_adv = true;
+            }
+        }
+
+        $data['is_adv'] = $is_adv;
+        return $data;
+    }
+
     private function generate_pagination($data) {
         global $this_page;
 
@@ -175,6 +193,9 @@ class Search {
         $page               = $data['page'];
         $pagelinks          = array();
         $numlinks           = array();
+
+        $URL = new \URL($this_page);
+        $URL->insert(array( 's' => $data['s'] ) );
 
         if ($total_results > $results_per_page) {
 
@@ -197,8 +218,6 @@ class Search {
                 $lastpage = $numpages;
             }
 
-            $URL = new \URL($this_page);
-            $URL->insert(array( 's' => $data['s'] ) );
             for ($n = $firstpage; $n <= $lastpage; $n++) {
 
                 if ($n > 1) {
