@@ -208,35 +208,49 @@
                     <a href="#">Download a CSV of current MPs</a>
                     suitable for Excel
                 </p>
-                <form method="get" action="/mps/">
-                    <p class="sidebar-item-with-icon sidebar-item-with-icon--date">
-                        <label for="download-past-list">Download past lists:</label>
-                        <select name="date" id="download-past-list">
-                            <option value="2010-05-06">MPs at 2010 general election</option>
-                            <option value="2005-05-05">MPs at 2005 general election</option>
-                            <option value="2001-06-07">MPs at 2001 general election</option>
-                            <option value="1997-05-01">MPs at 1997 general election</option>
-                            <option value="1992-04-09">MPs at 1992 general election</option>
-                            <option value="1987-06-11">MPs at 1987 general election</option>
-                            <option value="1983-06-09">MPs at 1983 general election</option>
-                            <option value="1979-05-03">MPs at 1979 general election</option>
-                            <option value="1974-10-10">MPs at Oct 1974 general election</option>
-                            <option value="1974-02-28">MPs at Feb 1974 general election</option>
-                            <option value="1970-06-18">MPs at 1970 general election</option>
-                            <option value="1966-03-31">MPs at 1966 general election</option>
-                            <option value="1964-10-15">MPs at 1964 general election</option>
-                            <option value="1959-10-08">MPs at 1959 general election</option>
-                            <option value="1955-05-26">MPs at 1955 general election</option>
-                            <option value="1951-10-25">MPs at 1951 general election</option>
-                            <option value="1950-02-23">MPs at 1950 general election</option>
-                            <option value="1945-07-05">MPs at 1945 general election</option>
-                            <option value="1935-11-14">MPs at 1935 general election</option>
-                            <option id="custom-date">Custom date&hellip;</option>
-                        </select>
-                        <input type="text" id="download-past-list-custom-date" name="date" class="form-control">
-                        <button type="submit" class="button small">Download</button>
+                <form method="get" action="/mps/" class="sidebar-item-with-icon sidebar-item-with-icon--date">
+                    <p>
+                        Or download a past list
+                        <a class="pick-a-date" href="#past-list-dates">Pick a date</a>
+                    </p>
+                    <p class="past-list-dates" id="past-list-dates">
+                        <a href="/mps/?date=2010-05-06">MPs at 2010 general election</a>
+                        <a href="/mps/?date=2005-05-05">MPs at 2005 general election</a>
+                        <a href="/mps/?date=2001-06-07">MPs at 2001 general election</a>
+                        <a href="/mps/?date=1997-05-01">MPs at 1997 general election</a>
+                        <a href="/mps/?date=1992-04-09">MPs at 1992 general election</a>
+                        <a href="/mps/?date=1987-06-11">MPs at 1987 general election</a>
+                        <a href="/mps/?date=1983-06-09">MPs at 1983 general election</a>
+                        <a href="/mps/?date=1979-05-03">MPs at 1979 general election</a>
+                        <a href="/mps/?date=1974-10-10">MPs at Oct 1974 general election</a>
+                        <a href="/mps/?date=1974-02-28">MPs at Feb 1974 general election</a>
+                        <a href="/mps/?date=1970-06-18">MPs at 1970 general election</a>
+                        <a href="/mps/?date=1966-03-31">MPs at 1966 general election</a>
+                        <a href="/mps/?date=1964-10-15">MPs at 1964 general election</a>
+                        <a href="/mps/?date=1959-10-08">MPs at 1959 general election</a>
+                        <a href="/mps/?date=1955-05-26">MPs at 1955 general election</a>
+                        <a href="/mps/?date=1951-10-25">MPs at 1951 general election</a>
+                        <a href="/mps/?date=1950-02-23">MPs at 1950 general election</a>
+                        <a href="/mps/?date=1945-07-05">MPs at 1945 general election</a>
+                        <a href="/mps/?date=1935-11-14">MPs at 1935 general election</a>
+                        <label for="past-list-custom-date">Custom date&hellip;</label>
+                        <span class="input-appended">
+                            <input type="text" id="past-list-custom-date" name="date" class="form-control" placeholder="YYYY-MM-DD">
+                            <input type="submit" value="Download" class="button">
+                        </span>
                     </p>
                 </form>
+
+                <script type="text/javascript">
+                $(function(){
+                  $('#past-list-dates').hide();
+                  $('a[href="#past-list-dates"]').on('click', function(e){
+                    e.preventDefault();
+                    $(this).trigger('blur');
+                    $('#past-list-dates').slideToggle();
+                  })
+                });
+                </script>
 
                 <h2>Did you find what you were looking for?</h2>
                 <form method="post" action="http://survey.mysociety.org">
