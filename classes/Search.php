@@ -434,18 +434,22 @@ private function find_constituency($args) {
     }
 
     $cons = array();
-    if ($constituency != '') {
-        // Got a match, display....
+    try {
+        if ($constituency != '') {
+            // Got a match, display....
 
-        $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-        $cons[] = $MEMBER;
-    } elseif (count($constituencies)) {
-        $out = '';
-        $heading = array();
-        foreach ($constituencies as $constituency) {
             $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
             $cons[] = $MEMBER;
+        } elseif (count($constituencies)) {
+            $out = '';
+            $heading = array();
+            foreach ($constituencies as $constituency) {
+                $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
+                $cons[] = $MEMBER;
+            }
         }
+    } catch ( MemberException $e ) {
+        $cons = array();
     }
 
     return $cons;
