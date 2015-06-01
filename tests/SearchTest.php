@@ -5,7 +5,7 @@
  * Currently only the highlighting and constituency search.
  */
 
-class SearchTest extends TWFY_Database_TestCase
+class SearchTest extends FetchPageTestCase
 {
 	public function setUp()
 	{
@@ -16,6 +16,11 @@ class SearchTest extends TWFY_Database_TestCase
     public function getDataSet()
     {
         return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/search.xml');
+    }
+
+    private function fetch_page($vars)
+    {
+        return $this->base_fetch_page('', $vars, 'www/docs/search');
     }
 
     public function testConstituencySearch()
@@ -107,4 +112,38 @@ class SearchTest extends TWFY_Database_TestCase
         );
     }
 
+    /**
+     * Test fetching the search page
+     *
+     * @group xapian
+     */
+    public function testSearchPage()
+    {
+        $page = $this->fetch_page( array( ) );
+        $this->assertContains('Search', $page);
+    }
+
+    /**
+     * Test searching for an MP
+     *
+     * @group xapian
+     */
+    public function testSearchPageMP()
+    {
+        $page = $this->fetch_page( array( 's' => 'Mary Smith' ) );
+        $this->assertContains('Mary Smith', $page);
+        $this->assertContains('MP, Amber Valley', $page);
+    }
+
+    public function testSearchPageCons() {
+        $page = $this->fetch_page( array( 's' => 'Amber' ) );
+        $this->assertContains('MP for <em class="current-search-term">Amber</em>', $page);
+        $this->assertContains('Mary Smith', $page);
+    }
+
+    public function testSearcPageConsWithNoMp() {
+        $page = $this->fetch_page( array( 's' => 'Alyn' ) );
+        $this->assertNotContains('MP for <em class="current-search-term">Alyn</em>', $page);
+        $this->assertNotContains('MPs in constituencies matching', $page);
+    }
 }

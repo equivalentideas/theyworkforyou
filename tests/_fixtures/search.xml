@@ -76,7 +76,7 @@
 		<row>
 			<field name="member_id">2</field>
 			<field name="house">1</field>
-			<field name="constituency"></field>
+			<field name="constituency">Amber Valley</field>
 			<field name="party"></field>
 			<field name="entered_house">2000-01-01</field>
 			<field name="left_house">9999-12-31</field>
