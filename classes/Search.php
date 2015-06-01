@@ -17,6 +17,7 @@ class Search {
         $this->search_string = $this->construct_search_string();
 
         if ( !$this->search_string ) {
+            $data = $this->get_form_params($data);
             $data['searchstring'] = '';
             $data['template'] = 'search/results';
             return $data;
